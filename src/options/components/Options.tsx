@@ -20,6 +20,7 @@ const Options = () => {
 
   useEffect(() => {
     if (!isHidden) {
+      /* empty */
     }
   }, [isHidden]);
 
