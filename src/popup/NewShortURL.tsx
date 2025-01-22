@@ -57,6 +57,30 @@ export const NewShortURL = ({
     });
   }, []);
 
+  // 當 url 有變化，且不是編輯模式時，自動產生 slug
+  useEffect(() => {
+    if (url && !editLink) {
+      // avoid confusion characters:
+      //   7, b, c, d, e, g, t, v: similar pronunciation in Chinese
+      //   0, 1, l, i, o: similar appearance
+      const charSet = '2345689acfhjkmnpqrsuwxyz';
+      const encoder = new TextEncoder();
+      const data = encoder.encode(url);
+
+      crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        let generatedSlug = '';
+        // 從 hash 中取前 4 bytes，並依餘數 map 至 charSet
+        for (let i = 0; i < 4; i++) {
+          const byte = hashArray[i];
+          const index = byte % charSet.length;
+          generatedSlug += charSet[index];
+        }
+        setKey(generatedSlug);
+      });
+    }
+  }, [url, editLink]);
+
   const handleCopy = () => {
     setCopied(true);
     copyToClipboard(`${instanceUrl}/${key}`, () => {
