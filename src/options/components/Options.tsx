@@ -37,19 +37,6 @@ const Options = () => {
         <LoginForm />
       </Modal>
 
-      {/* 右上角 Dark Mode 開關 */}
-      <div className='absolute right-8 top-8'>
-        <label className='relative inline-flex cursor-pointer items-center'>
-          <input
-            type='checkbox'
-            className='peer sr-only'
-            checked={darkMode}
-            onChange={() => setDarkMode(!darkMode)}
-          />
-          <div className='peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white' />
-        </label>
-      </div>
-
       <div className='m-5 flex max-w-7xl flex-1 flex-col'>
         <h2 className='flex items-center justify-start gap-4 text-center text-2xl font-bold'>
           <Logo />
@@ -65,6 +52,17 @@ const Options = () => {
                 className='h-10 w-10 cursor-pointer text-green-500 hover:opacity-80'
                 onClick={() => setHidden(false)}
               />
+              <div className='ml-auto flex pl-2'>
+                <label className='relative inline-flex cursor-pointer items-center'>
+                  <input
+                    type='checkbox'
+                    className='peer sr-only'
+                    checked={darkMode}
+                    onChange={() => setDarkMode(!darkMode)}
+                  />
+                  <div className='peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white' />
+                </label>
+              </div>
             </div>
           )}
         </h2>

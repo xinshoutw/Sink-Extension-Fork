@@ -9,10 +9,8 @@ const DarkModeWrapper = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
-      console.log('dark mode!');
     } else {
       document.documentElement.classList.remove('dark');
-      console.log('light mode');
     }
   }, [isDark]);
   return children;
