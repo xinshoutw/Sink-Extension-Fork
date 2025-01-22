@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/preact';
-import Newtab from './Newtab';
+import Newtab from '@src/newtab/Newtab';
 
 describe('Newtab page', () => {
   it('should render the Newtab page', () => {

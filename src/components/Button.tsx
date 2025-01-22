@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { LoadingIcon } from './LoadingIcon';
+import { LoadingIcon } from '@src/components/LoadingIcon';
 
 export const Button = ({
   className,
@@ -19,7 +19,7 @@ export const Button = ({
     <button
       {...props}
       disabled={isLoging || props.disabled}
-      className={`${props.class || className} flex items-center justify-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-900 disabled:bg-gray-300 focus:outline-none`}
+      className={`${props.class || className} flex items-center justify-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-900 focus:outline-none disabled:bg-gray-300`}
       onClick={e => {
         const result = onClick(e);
         if (result instanceof Promise) {

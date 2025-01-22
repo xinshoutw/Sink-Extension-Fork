@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/preact';
-import Devtools from './Devtools';
+import Devtools from '@src/devtools/Devtools';
 
 describe('Devtools page', () => {
   it('should render the Devtools page', () => {

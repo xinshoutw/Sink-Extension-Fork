@@ -1,6 +1,7 @@
 import openUrl from '@src/assets/openUrl.svg';
 import { Svg } from '@src/components/Svg';
 import { ComponentChild } from 'preact';
+
 export const JumpLink = ({
   link,
   svg = openUrl,

@@ -1,9 +1,9 @@
 import { Logo } from '@src/assets/img/logo';
-import { NewShortURL } from './NewShortURL';
+import { NewShortURL } from '@src/popup/NewShortURL';
 import { Footer } from '@src/components/Footer';
 import { useLinks } from '@src/util/useLinks';
 import { LoadingIcon } from '@src/components/LoadingIcon';
-import { Links } from './Links';
+import { Links } from '@src/popup/Links';
 
 export default function Popup() {
   const { links, setLinks, queryLinks, isLoading } = useLinks(1000);

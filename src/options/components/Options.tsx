@@ -8,9 +8,9 @@ import { Modal } from '@src/components/Modal';
 import { SplitLine } from '@src/components/SplitLine';
 import { SETTING } from '@src/constant';
 import { useAtom, useAtomValue } from 'jotai';
-import { useEffect, useRef, useState } from 'preact/hooks';
-import { linksAtom, optionLoginModalAtom } from '../../util/atom';
-import { Links } from './Links';
+import { useEffect, useState } from 'preact/hooks';
+import { linksAtom, optionLoginModalAtom } from '@src/util/atom';
+import { Links } from '@src/options/components/Links';
 import { Footer } from '@src/components/Footer';
 
 const Options = () => {

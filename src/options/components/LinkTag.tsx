@@ -28,7 +28,7 @@ const Tag = ({ shortKey, url }: TagProps) => {
   const avatarUrl = useAvatar(url);
 
   return (
-    <div className='bg-white mt-2 rounded-lg border shadow-lg transition-transform hover:scale-105'>
+    <div className='mt-2 rounded-lg border bg-white shadow-lg transition-transform hover:scale-105'>
       <div className='flex flex-col space-y-3 p-4'>
         <div className='flex items-center justify-center space-x-3'>
           <span className='text-foreground bg-secondary inline-flex h-10 w-10 shrink-0 select-none items-center justify-center overflow-hidden rounded-full text-xs font-normal'>
@@ -44,11 +44,11 @@ const Tag = ({ shortKey, url }: TagProps) => {
                 {shortKey}
               </div>
               {copied ? (
-                <SuccessSvg className='ml-1 shrink-0 w-5 h-5 text-green-500' />
+                <SuccessSvg className='ml-1 h-5 w-5 shrink-0 text-green-500' />
               ) : (
                 <CopySvg
                   onClick={handleCopy}
-                  className='ml-1 shrink-0 cursor-pointer w-5 h-5'
+                  className='ml-1 h-5 w-5 shrink-0 cursor-pointer'
                   alt='Copy short link'
                 />
               )}

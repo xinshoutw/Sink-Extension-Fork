@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import preact from '@preact/preset-vite';
 import makeManifest from './scripts/make-manifest';
-import svgr from "vite-plugin-svgr";
+import svgr from 'vite-plugin-svgr';
 
 const src = resolve(__dirname, 'src');
 const assetsDir = resolve(src, 'assets');
@@ -16,7 +16,7 @@ export default defineConfig({
       '@assets': assetsDir,
     },
   },
-  plugins: [makeManifest(), svgr(),preact()],
+  plugins: [makeManifest(), svgr(), preact()],
   publicDir,
   build: {
     outDir,

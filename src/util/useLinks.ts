@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'preact/hooks';
 import { request } from '.';
 import { useAtom, useSetAtom } from 'jotai';
-import { linksAtom, optionLoginModalAtom } from './atom';
-
+import { linksAtom, optionLoginModalAtom } from '@src/util/atom';
 
 export const useLinks = (count: number = 100) => {
-  const setHidden = useSetAtom(optionLoginModalAtom)
+  const setHidden = useSetAtom(optionLoginModalAtom);
 
   const [links, setLinks] = useAtom(linksAtom);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +16,7 @@ export const useLinks = (count: number = 100) => {
           throw Error();
         }
         setLinks(data.links);
-        setHidden(true)
+        setHidden(true);
         return data;
       })
       .catch(() => {

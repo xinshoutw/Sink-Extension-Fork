@@ -1,5 +1,5 @@
 import { SETTING } from '@src/constant';
-import { useState, useLayoutEffect } from 'preact/hooks';
+import { useLayoutEffect, useState } from 'preact/hooks';
 
 export const useSettings = () => {
   const [instanceUrl, setInstanceUrl] = useState('');

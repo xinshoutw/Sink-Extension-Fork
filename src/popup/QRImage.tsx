@@ -11,7 +11,7 @@ export const QRImage = ({ text }: { text: string }) => {
     return () => {
       document.body.style.minHeight = 'unset';
       document.body.style.minWidth = 'unset';
-    }
+    };
   }, [text]);
   return <canvas ref={ref} id='canvas'></canvas>;
 };

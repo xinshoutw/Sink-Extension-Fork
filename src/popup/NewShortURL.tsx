@@ -12,7 +12,7 @@ import { Button } from '@src/components/Button';
 import { LoadingIcon } from '@src/components/LoadingIcon';
 import { FormError } from '@src/options/components/FormError';
 import { ILink } from '@src/util/atom';
-import QRModal from './QRModal';
+import QRModal from '@src/popup/QRModal';
 
 export const NewShortURL = ({
   links,

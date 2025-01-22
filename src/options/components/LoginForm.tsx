@@ -3,9 +3,9 @@ import { Footer } from '@src/components/Footer';
 import { useLinks } from '@src/util/useLinks';
 import { useSettings } from '@src/util/useSettings';
 import { useLayoutEffect, useState } from 'preact/hooks';
-import { JumpLink } from '../../components/JumpLink';
-import { FormError } from './FormError';
-import { Header } from './Header';
+import { JumpLink } from '@src/components/JumpLink';
+import { FormError } from '@src/options/components/FormError';
+import { Header } from '@src/options/components/Header';
 
 const URL_REG =
   /^(https?:\/\/)?([a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+)(:[0-9]{1,5})?(\/.*)?$/;
