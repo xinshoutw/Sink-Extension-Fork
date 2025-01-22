@@ -14,7 +14,12 @@ export const JumpLink = ({
   children?: ComponentChild;
 }) => {
   return link ? (
-    <a className='opacity-90 hover:opacity-60' href={link} target='_blank'>
+    <a
+      className='opacity-90 hover:opacity-60'
+      href={link}
+      target='_blank'
+      rel='noreferrer'
+    >
       {children || <Svg src={svg} alt={alt} />}
     </a>
   ) : null;

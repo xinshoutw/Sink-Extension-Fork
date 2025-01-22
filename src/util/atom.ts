@@ -11,3 +11,4 @@ export interface ILink {
 }
 
 export const linksAtom = atom<ILink[]>();
+export const darkModeAtom = atom(true);

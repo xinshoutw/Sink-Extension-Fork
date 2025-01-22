@@ -162,7 +162,7 @@ export const NewShortURL = ({
               value={key}
               onInput={handleKeyChange}
               placeholder='[Short Key]'
-              className='flex-1 border-b border-b-gray-200 p-0 text-base shadow-sm focus:border-gray-400 focus:outline-none focus:ring-gray-400'
+              className='flex-1 border-b p-0 text-base shadow-sm focus:border-gray-400 focus:outline-none focus:ring-gray-400'
             />
             {copied ? (
               <SuccessSvg className='ml-1 h-6 w-6 cursor-pointer text-green-500' />
@@ -184,7 +184,7 @@ export const NewShortURL = ({
           value={url}
           onInput={handleUrlChange}
           placeholder='https://example.com'
-          className='flex-1 border-b border-b-gray-200 p-0 px-1 text-base font-thin text-gray-400 shadow-sm focus:border-gray-400 focus:text-gray-700 focus:outline-none focus:ring-gray-400'
+          className='flex-1 border-b p-0 px-1 text-base font-thin text-gray-400 shadow-sm focus:border-gray-400 focus:text-gray-700 focus:outline-none focus:ring-gray-400 dark:border-b-gray-700'
         />
         {isLoadSlug ? (
           <LoadingIcon size={24} />
