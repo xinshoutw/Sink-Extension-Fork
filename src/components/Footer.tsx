@@ -4,7 +4,8 @@ import settingSvg from '@src/assets/setting.svg';
 import webSvg from '@src/assets/web.svg';
 import { JumpLink } from '@src/components/JumpLink';
 import { MY_GITHUB } from '@src/constant';
-import { useSettings } from '@src/util/useSettings';
+import { instanceUrlAtom } from '@src/util/atom';
+import { useAtomValue } from 'jotai';
 
 export const Footer = ({
   hideSetting,
@@ -18,7 +19,7 @@ export const Footer = ({
   hideGithub?: boolean;
 }) => {
   const optionsUrl = chrome.runtime.getURL('src/options/index.html');
-  const { instanceUrl } = useSettings();
+  const instanceUrl = useAtomValue(instanceUrlAtom);
   return (
     <div className='mb-2 mt-5 flex w-full items-center justify-between'>
       <div className='flex items-center justify-start gap-2'>

@@ -21,7 +21,7 @@ export const Modal = ({
       onClick={maskClosable ? onClose : undefined}
     >
       <div
-        className='scale-100 transform rounded-lg bg-white p-4 shadow-lg transition-transform duration-300'
+        className='scale-100 transform rounded-lg bg-white p-4 shadow-lg transition-transform duration-300 dark:bg-gray-800 dark:text-white'
         onClick={e => e.stopPropagation()}
       >
         {showCloseButton && (

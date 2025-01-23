@@ -1,4 +1,3 @@
-// /src/options/components/Options.tsx
 import { useEffect, useState } from 'preact/hooks';
 import { useAtom, useAtomValue } from 'jotai';
 import ComputerSvg from '@src/assets/computer.svg?react';

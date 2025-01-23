@@ -2,17 +2,14 @@ import { useAvatar } from '@src/util/useAvatar';
 import { useEffect, useLayoutEffect, useState } from 'preact/hooks';
 
 import CopySvg from '@src/assets/copy.svg?react';
-import FlashSvg from '@src/assets/flash.svg?react';
 import SuccessSvg from '@src/assets/success.svg?react';
-import { Svg } from '@src/components/Svg';
 import { copyToClipboard, debounce, request } from '@src/util';
-import { useSettings } from '@src/util/useSettings';
 
 import { Button } from '@src/components/Button';
-import { LoadingIcon } from '@src/components/LoadingIcon';
 import { FormError } from '@src/options/components/FormError';
-import { ILink } from '@src/util/atom';
+import { ILink, instanceUrlAtom } from '@src/util/atom';
 import QRModal from '@src/popup/QRModal';
+import { useAtomValue } from 'jotai/index';
 
 export const NewShortURL = ({
   links,
@@ -27,7 +24,7 @@ export const NewShortURL = ({
   const [url, setUrl] = useState('');
   const [key, setKey] = useState('');
   const [copied, setCopied] = useState(false);
-  const { instanceUrl } = useSettings();
+  const instanceUrl = useAtomValue(instanceUrlAtom);
   const [errors, setErrors] = useState<{
     key?: string;
     url?: string;
@@ -57,7 +54,7 @@ export const NewShortURL = ({
     });
   }, []);
 
-  // 當 url 有變化，且不是編輯模式時，自動產生 slug
+  // When the url changes, and it is not in edit mode, automatically generate the slug
   useEffect(() => {
     if (url && !editLink) {
       // avoid confusion characters:
@@ -70,7 +67,7 @@ export const NewShortURL = ({
       crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         let generatedSlug = '';
-        // 從 hash 中取前 4 bytes，並依餘數 map 至 charSet
+        // take the first 4 bytes from the hash, map to charSet by remainder
         for (let i = 0; i < 4; i++) {
           const byte = hashArray[i];
           const index = byte % charSet.length;
@@ -106,10 +103,8 @@ export const NewShortURL = ({
   const handleSubmit = async (e: Event) => {
     if (validateForm()) {
       setIsLoging(true);
-      const link = {
-        url,
-        slug: key,
-      };
+      const link = { url, slug: key };
+
       request(isEdit ? '/api/link/edit' : '/api/link/create', {
         method: isEdit ? 'PUT' : 'POST',
         headers: {
@@ -147,74 +142,70 @@ export const NewShortURL = ({
 
   return (
     <div className='flex w-full flex-col items-center justify-center'>
-      <div className='flex w-full items-center justify-center'>
-        <Svg
-          src={avatarUrl}
-          alt={key}
-          className='mr-2 h-10 w-10 select-none overflow-hidden rounded-full object-cover shadow-lg'
-        />
-        <div className='flex-1'>
-          <div className='flex items-center justify-start overflow-hidden'>
-            <div className='mr-[2px] truncate text-base font-bold leading-5'>
+      <div className=''>
+        <div className='flex items-center rounded-md bg-gray-100 p-3 dark:bg-gray-800'>
+          <div className='flex flex-1 items-center space-x-2'>
+            <div className='whitespace-nowrap text-base font-bold leading-5'>
               {`${instanceUrl}/`}
             </div>
             <input
               value={key}
               onInput={handleKeyChange}
-              placeholder='[Short Key]'
-              className='flex-1 border-b p-0 text-base shadow-sm focus:border-gray-400 focus:outline-none focus:ring-gray-400'
+              placeholder={key || '[Short Key]'}
+              className='flex-1 rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-sm shadow-sm focus:border-gray-600 focus:outline-none focus:ring-gray-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'
             />
+          </div>
+
+          {/* Copy / QRModal */}
+          <div className='ml-2 flex items-center space-x-2'>
             {copied ? (
-              <SuccessSvg className='ml-1 h-6 w-6 cursor-pointer text-green-500' />
+              <SuccessSvg className='h-6 w-6 cursor-pointer text-green-500' />
             ) : (
               <CopySvg
                 onClick={handleCopy}
-                className='ml-1 h-6 w-6 cursor-pointer'
+                className='h-6 w-6 cursor-pointer'
                 alt='Copy the short link'
               />
             )}
             <QRModal text={`${instanceUrl}/${key}`} />
           </div>
-          <FormError error={errors.key} />
+        </div>
+        <FormError error={errors.key} />
+
+        <div className='flex w-full items-center rounded-md bg-gray-100 p-3 dark:bg-gray-800'>
+          <input
+            type='text'
+            value={url}
+            onInput={handleUrlChange}
+            placeholder='https://example.com'
+            className='flex-1 rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-sm shadow-sm focus:border-gray-600 focus:outline-none focus:ring-gray-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'
+          />
+          <div className='ml-2 flex items-center space-x-2'>
+            <QRModal text={url} />
+          </div>
+        </div>
+        <div className='self-start'>
+          {warning.length > 0 && (
+            <p className='mt-1 text-xs text-yellow-400'>
+              The url has been existed with{' '}
+              <b>{warning.map(link => link.slug).join(',')}</b>
+            </p>
+          )}
+          <FormError error={errors.url} />
+          <FormError error={errors.login} />
+        </div>
+
+        <div className='text-center'>
+          <Button
+            className='w-full bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-300'
+            loading={isLoging}
+            disabled={editLink?.slug === key && editLink.url === url}
+            onClick={e => handleSubmit(e)}
+          >
+            {isEdit ? 'Edit' : 'Add'}
+          </Button>
         </div>
       </div>
-      <div className='mt-1 flex w-full items-center justify-center'>
-        <input
-          type='text'
-          value={url}
-          onInput={handleUrlChange}
-          placeholder='https://example.com'
-          className='flex-1 border-b p-0 px-1 text-base font-thin text-gray-400 shadow-sm focus:border-gray-400 focus:text-gray-700 focus:outline-none focus:ring-gray-400 dark:border-b-gray-700'
-        />
-        {isLoadSlug ? (
-          <LoadingIcon size={24} />
-        ) : (
-          <FlashSvg
-            onClick={() => handleRquest()}
-            className='ml-1 h-6 w-6 cursor-pointer'
-            alt='Quick generate slug'
-          />
-        )}
-        <QRModal text={url} />
-      </div>
-      <div className='self-start'>
-        {warning.length ? (
-          <p className='mt-1 text-xs text-yellow-400'>
-            The url has been existed with{' '}
-            <b>{warning.map(link => link.slug).join(',')}</b>
-          </p>
-        ) : null}
-        <FormError error={errors.url} />
-        <FormError error={errors.login} />
-      </div>
-      <Button
-        className='mt-3 w-full'
-        loading={isLoging}
-        disabled={editLink?.slug === key && editLink.url === url}
-        onClick={e => handleSubmit(e)}
-      >
-        {isEdit ? 'Edit' : 'Add'}
-      </Button>
     </div>
   );
 };

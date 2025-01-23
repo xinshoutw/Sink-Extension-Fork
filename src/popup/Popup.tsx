@@ -8,13 +8,13 @@ import { Links } from '@src/popup/Links';
 export default function Popup() {
   const { links, setLinks, queryLinks, isLoading } = useLinks(1000);
   return (
-    <div className='w-full min-w-[450px] p-5 pb-1'>
+    <div className='w-full min-w-[450px] bg-white p-5 pb-1 text-gray-800 dark:bg-gray-800 dark:text-gray-200'>
       <div className='flex items-center justify-center text-lg'>
         <Logo size={30} />
         <h2 className='ml-2 font-bold'>Sink</h2>
       </div>
       <div className='mt-8 w-full'>
-        <div className='flex w-full flex-col items-center justify-center'>
+        <div className='flex w-full flex-col items-center justify-center bg-white dark:bg-gray-700'>
           {isLoading ? (
             <LoadingIcon size={30} />
           ) : (
@@ -32,7 +32,7 @@ export default function Popup() {
                         return data;
                       })
                       .catch(() => {
-                        setLinks(undefined);
+                        setLinks([]);
                       });
                   }}
                 />

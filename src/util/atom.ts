@@ -10,5 +10,7 @@ export interface ILink {
   updatedAt: number;
 }
 
-export const linksAtom = atom<ILink[]>();
-export const darkModeAtom = atom(true);
+export const linksAtom = atom<ILink[]>([]);
+export const instanceUrlAtom = atom<string>('');
+export const passwordAtom = atom<string>('');
+export const darkModeAtom = atom<boolean>(true);

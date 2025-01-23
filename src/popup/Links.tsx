@@ -1,13 +1,12 @@
 import { SplitLine } from '@src/components/SplitLine';
 import { copyToClipboard, debounce } from '@src/util';
-import { linksAtom } from '@src/util/atom';
-import { useSettings } from '@src/util/useSettings';
+import { instanceUrlAtom, linksAtom } from '@src/util/atom';
 import { useAtomValue } from 'jotai';
 import { useState } from 'preact/hooks';
 
 export const Links = () => {
   const links = useAtomValue(linksAtom);
-  const { instanceUrl } = useSettings();
+  const instanceUrl = useAtomValue(instanceUrlAtom);
   const [text, setText] = useState('');
   const [sort, setSort] = useState('CREATE');
 
@@ -15,11 +14,11 @@ export const Links = () => {
   return (
     <div>
       <SplitLine />
-      <div className='mb-3 flex items-center gap-2'>
+      <div className='mb-3 flex items-center gap-2 dark:bg-gray-800 dark:text-gray-200'>
         <select
           value={sort}
           onChange={e => setSort(e.currentTarget.value)}
-          className='rounded-md border border-gray-300 px-1 py-1 shadow-sm focus:border-gray-800 focus:outline-none focus:ring-gray-800 sm:text-sm'
+          className='rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-sm shadow-sm focus:border-gray-600 focus:outline-none focus:ring-gray-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'
         >
           <option value='CREATE'>create date</option>
           <option value='UPDATE'>update date</option>
@@ -37,7 +36,7 @@ export const Links = () => {
               500
             )(e.currentTarget.value)
           }
-          className='flex-1 rounded-md border border-gray-300 px-1 py-1 shadow-sm focus:border-gray-800 focus:outline-none focus:ring-gray-800 sm:text-sm'
+          className='flex-1 rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-sm shadow-sm focus:border-gray-600 focus:outline-none focus:ring-gray-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'
         />
       </div>
       {links
@@ -64,7 +63,7 @@ export const Links = () => {
             onClick={() => {
               copyToClipboard(`${instanceUrl}/${link.slug}`, () => {});
             }}
-            class='mb-2 mr-2 inline-block cursor-pointer select-none rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-300'
+            className='mb-2 mr-2 inline-block cursor-pointer select-none rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-300'
           >
             {link.slug}
           </span>

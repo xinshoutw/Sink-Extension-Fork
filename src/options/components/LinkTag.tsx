@@ -5,8 +5,9 @@ import { useState } from 'preact/hooks';
 import CopySvg from '@src/assets/copy.svg?react';
 import SuccessSvg from '@src/assets/success.svg?react';
 import { Svg } from '@src/components/Svg';
-import { useSettings } from '@src/util/useSettings';
 import { JumpLink } from '@src/components/JumpLink';
+import { useAtomValue } from 'jotai/index';
+import { instanceUrlAtom } from '@src/util/atom';
 
 interface TagProps {
   shortKey: string;
@@ -16,7 +17,7 @@ interface TagProps {
 
 const Tag = ({ shortKey, url }: TagProps) => {
   const [copied, setCopied] = useState(false);
-  const { instanceUrl } = useSettings();
+  const instanceUrl = useAtomValue(instanceUrlAtom);
 
   const handleCopy = () => {
     setCopied(true);

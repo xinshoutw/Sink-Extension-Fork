@@ -13,12 +13,9 @@ export const Links = () => {
               <LinkTag key={link.slug} url={link.url} shortKey={link.slug} />
             ))}
           </div>
-          <div className='mb-4 mt-8 text-center text-gray-400'>
-            No more links
-          </div>
         </>
       ) : (
-        'No links found'
+        <div className='mb-4 mt-8 text-center text-gray-400'>No more links</div>
       )}
     </div>
   );
